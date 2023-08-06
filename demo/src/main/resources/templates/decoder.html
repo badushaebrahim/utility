@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Base64 File Decoder</title>
+</head>
+<body>
+<form id="fileForm">
+    <label for="encodedFile">Base64 Encoded File:</label>
+    <textarea id="encodedFile" name="encodedFile" rows="10" cols="50" required></textarea>
+    <br>
+    <input type="text" required id="fileName" name="fileName">
+    <br>
+    <button type="button" onclick="decodeFile()">Decode and Download</button>
+</form>
+<script>
+console.log("hit")
+        function decodeFile() {
+            const encodedFile = document.getElementById("encodedFile").value;
+            const fileName = document.getElementById("fileName").value;
+            fetch('/decode', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'fileName' : fileName
+                },
+                body: encodedFile,
+            })
+            .then(response => response.text())
+            .then(decodedData => {
+                // Create a Blob from the decoded data
+                const blob = new Blob([decodedData]);
+
+                // Create a URL for the Blob
+                const url = URL.createObjectURL(blob);
+
+                // Create a temporary anchor element to initiate the download
+                const downloadLink = document.createElement('a');
+                downloadLink.href = url;
+                downloadLink.download = fileName;
+                downloadLink.click();
+
+                // Clean up the URL and anchor element
+                URL.revokeObjectURL(url);
+            })
+            .catch(error => {
+                console.error('Error decoding file:', error);
+            });
+        }
+    </script>
+</body>
+</html>

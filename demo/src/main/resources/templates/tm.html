@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Base64 to File Decoder</title>
+</head>
+<body>
+<h1>Base64 to File Decoder</h1>
+<form method="post" action="#" th:object="${decoderForm}">
+    <label for="base64String">Base64 Encoded String:</label>
+    <textarea id="base64String" name="base64String" rows="10" cols="50" th:field="*{base64String}"></textarea>
+    <br>
+    <label for="fileName">File Name:</label>
+    <input type="text" id="fileName" name="fileName" th:field="*{fileName}" />
+    <br>
+    <button type="submit">Decode and Download</button>
+</form>
+</body>
+</html>

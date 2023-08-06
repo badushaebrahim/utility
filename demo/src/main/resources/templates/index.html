@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>File to Base64 Encoder</title>
+</head>
+<body>
+<a href="/decodeBase64">decoder</a>
+<br><a href="/ecodeBase64-v2">decoder</a>
+<h1>File to Base64 Encoder</h1>
+<form method="post" action="/encode" enctype="multipart/form-data">
+    <input type="file" name="file" />
+    <button type="submit">Encode to Base64</button>
+</form>
+<div th:if="${encodedBase64String}">
+    <h2>Base64 Encoded Content:</h2>
+    <textarea rows="10" cols="80" th:text="${encodedBase64String}" readonly></textarea>
+</div>
+</body>
+</html>
